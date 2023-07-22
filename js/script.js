@@ -166,12 +166,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function showModalByScroll() {
     if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight -1){
-      openModal();
+      openModal(); // Если скролл дошел до низа страницы то открыть модалку
       
       window.removeEventListener('scroll', showModalByScroll)
     }
   }
 
-  window.addEventListener('scroll', showModalByScroll)
+  window.addEventListener('scroll', showModalByScroll) //При скролле выполняет функцию модалки
 
 });
