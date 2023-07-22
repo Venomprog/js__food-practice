@@ -60,7 +60,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   //TIMER
 
-  const deadline = '2023-06-11';
+  const deadline = '2023-07-25';
 
   function getTimeRemaining(endtime){
     let days, hours, minutes, seconds;
@@ -126,17 +126,25 @@ window.addEventListener('DOMContentLoaded', () => {
   const modalBtns = document.querySelectorAll('[data-modal]')
   const modal = document.querySelector('.modal')
   const modalClose = document.querySelector('[data-close]')
-  modalBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      modal.classList.toggle('show')
-      document.body.style.overflow = 'hidden'
-    })
-  })
+
+  function openModal() {
+    modal.classList.toggle('show')
+    document.body.style.overflow = 'hidden';
+
+    clearInterval(modalTimerId);
+  }
+
 
   function closeModal(){
     modal.classList.toggle('show')
     document.body.style.overflow = ''
   }
+
+  modalBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      openModal() 
+    })
+  })
 
   modalClose.addEventListener('click', closeModal);
   
@@ -153,5 +161,17 @@ window.addEventListener('DOMContentLoaded', () => {
       closeModal()
     }
   });
+
+  const modalTimerId = setTimeout(openModal, 5000)
+
+  function showModalByScroll() {
+    if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight -1){
+      openModal();
+      
+      window.removeEventListener('scroll', showModalByScroll)
+    }
+  }
+
+  window.addEventListener('scroll', showModalByScroll)
 
 });
